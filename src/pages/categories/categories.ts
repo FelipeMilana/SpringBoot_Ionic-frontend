@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoryDTO } from '../../models/category.dto';
 import { CategoryService } from '../../services/domain/category.service';
 
 /**
@@ -16,6 +17,8 @@ import { CategoryService } from '../../services/domain/category.service';
 })
 export class CategoriesPage {
 
+  items: CategoryDTO[];
+   
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -25,10 +28,10 @@ export class CategoriesPage {
   ionViewDidLoad() {
     this.categoryService.findAll()
       .subscribe(response => {
-        console.log(response);
+        this.items = response;
       },
-      error => {
-        console.log(error)
+      (error) => {
+        console.log(error);
       });
   }
 
