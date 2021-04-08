@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CityDTO } from '../../models/city.dto';
 import { StateDTO } from '../../models/state.dto';
 import { CityService } from '../../services/domain/city.service';
+import { ClientService } from '../../services/domain/client.service';
 import { StateService } from '../../services/domain/state.service';
 
 @IonicPage()
@@ -22,12 +23,14 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cityService: CityService,
-    public stateService: StateService) {
+    public stateService: StateService,
+    public clientService: ClientService,
+    public alertCtrl: AlertController) {
 
       this.formGroup = this.formBuilder.group({
         name: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
         email: ['Joaquim@gmail.com', [Validators.required, Validators.email]],
-        type: ['1', [Validators.required]],
+        type: ['Pessoa Física', [Validators.required]],
         cpfOrCnpj: ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
         password: ['123456', [Validators.required]],
         street: ['Rua via', [Validators.required]],
@@ -49,7 +52,7 @@ export class SignupPage {
         this.states = response;
         this.formGroup.controls.stateId.setValue(this.states[0].id);
         this.updateCities();
-      },
+      },  
       error => {});
   }
 
@@ -62,8 +65,29 @@ export class SignupPage {
       },
       error => {});
   }
-  
+
   signupUser() {
-    console.log("enviado")
+    this.clientService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
+  }
+
+  showInsertOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
