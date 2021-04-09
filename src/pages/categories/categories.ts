@@ -28,4 +28,7 @@ export class CategoriesPage {
       );
   }
 
+  showProducts(categoryId: string) {
+    this.navCtrl.push('ProductsPage', {id: categoryId});  
+  }
 }
