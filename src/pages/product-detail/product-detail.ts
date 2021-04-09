@@ -5,12 +5,12 @@ import { ProductService } from '../../services/domain/product.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-products',
-  templateUrl: 'products.html',
+  selector: 'page-product-detail',
+  templateUrl: 'product-detail.html',
 })
-export class ProductsPage {
+export class ProductDetailPage {
 
-  items: ProductDTO[];
+  item: ProductDTO;
 
   constructor(
     public navCtrl: NavController, 
@@ -19,16 +19,12 @@ export class ProductsPage {
   }
 
   ionViewDidLoad() {
-    let categoryId = this.navParams.get('id');
+    let itemId = this.navParams.get('id');
 
-    this.productService.findByCategories(categoryId)
+    this.productService.findById(itemId)
       .subscribe(response => {
-        this.items = response['content'];
+        this.item = response;
       },
       error => {});
-  }
-
-  showDetails(itemId: string) {
-    this.navCtrl.push('ProductDetailPage', {id: itemId});
   }
 }
