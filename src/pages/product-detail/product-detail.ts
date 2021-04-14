@@ -17,7 +17,7 @@ export class ProductDetailPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public productService: ProductService,
-    public carService: ShoppingCartService) {
+    public cartService: ShoppingCartService) {
   }
 
   ionViewDidLoad() {
@@ -31,7 +31,7 @@ export class ProductDetailPage {
   }
 
   addToCart(product: ProductDTO) {
-    this.carService.addProduct(product);
+    this.cartService.addProduct(product);
     this.navCtrl.setRoot('CartPage');
   }
 }
