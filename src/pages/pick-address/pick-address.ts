@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClientDTO } from '../../models/client.dto';
+import { AddressDTO } from '../../models/address.dto';
 import { ClientService } from '../../services/domain/client.service';
 import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+  selector: 'page-pick-address',
+  templateUrl: 'pick-address.html',
 })
-export class ProfilePage {
+export class PickAddressPage {
 
-  client: ClientDTO;
+  items: AddressDTO[];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public storage: StorageService,
-    public clientService: ClientService) {
+    public clientService: ClientService,
+    public storage: StorageService) {
   }
 
   ionViewDidLoad() {
@@ -25,7 +25,7 @@ export class ProfilePage {
     if(localUser && localUser.email) {
       this.clientService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.client = response as ClientDTO;
+          this.items = response['addresses'];
         },
         error => {
           if(error.status == 403) {
@@ -37,5 +37,4 @@ export class ProfilePage {
       this.navCtrl.setRoot('HomePage');
     }
   }
-
 }

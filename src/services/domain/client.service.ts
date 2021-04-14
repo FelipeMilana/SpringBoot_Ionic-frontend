@@ -1,8 +1,6 @@
 import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { API_CONFIG } from "../../configs/api.config";
-import { ClientDTO } from "../../models/client.dto";
 import { ClientInsertDTO } from "../../models/client.insert.dto";
 import { StorageService } from "../storage.service";
 
@@ -14,8 +12,8 @@ export class ClientService {
         public storage: StorageService) {
     }
 
-    findByEmail(email: String) : Observable<ClientDTO>{
-        return this.http.get<ClientDTO>(`${API_CONFIG.baseUrl}/clients/email?value=${email}`);
+    findByEmail(email: String) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clients/email?value=${email}`);
     }
 
     insert(obj: ClientInsertDTO) {
