@@ -12,6 +12,10 @@ export class ClientService {
         public storage: StorageService) {
     }
 
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clients/${id}`);
+    }
+    
     findByEmail(email: String) {
         return this.http.get(`${API_CONFIG.baseUrl}/clients/email?value=${email}`);
     }
