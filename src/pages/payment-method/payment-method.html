@@ -17,7 +17,7 @@
   
         <ion-item>
           <ion-label>Pagamento com cartão</ion-label>
-          <ion-radio checked="true" value="pagamentoComCartão"></ion-radio>
+          <ion-radio checked="true" value="pagamentoComCartao"></ion-radio>
         </ion-item>
   
         <ion-item>
@@ -26,7 +26,7 @@
         </ion-item>  
       </ion-list>
       
-      <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComCartão'">
+      <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComCartao'">
         <ion-label stacked>Número de parcelas</ion-label>
         <ion-select formControlName="installments">
           <ion-option *ngFor="let n of numberInstallments; first as f" [value]="n" [selected]="f">{{n}}</ion-option>

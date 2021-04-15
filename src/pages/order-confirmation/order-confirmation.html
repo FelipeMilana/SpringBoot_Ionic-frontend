@@ -60,7 +60,7 @@
       Pagamento
     </ion-card-header>
 
-    <ion-item *ngIf="order.payment['@type'] == 'pagamentoComCartão'">
+    <ion-item *ngIf="order.payment['@type'] == 'pagamentoComCartao'">
       <h3>Pagamento com cartão</h3>
       <p>Parcelas: {{order.payment.installments}}</p>
     </ion-item>
@@ -70,4 +70,6 @@
     </ion-item>
   </ion-card>
 
+  <button ion-button block (click)="checkOut()">Confirmar pedido</button>
+  <button ion-button block outline (click)="back()">voltar</button>
 </ion-content>

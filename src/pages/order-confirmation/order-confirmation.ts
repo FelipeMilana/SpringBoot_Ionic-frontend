@@ -5,6 +5,7 @@ import { CartItem } from '../../models/cart-item';
 import { ClientDTO } from '../../models/client.dto';
 import { OrderInsertDTO } from '../../models/order.insert.dto';
 import { ClientService } from '../../services/domain/client.service';
+import { OrderService } from '../../services/domain/order.service';
 import { ShoppingCartService } from '../../services/domain/shoppingCart.service';
 
 @IonicPage()
@@ -23,7 +24,8 @@ export class OrderConfirmationPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public cartService: ShoppingCartService,
-    public ClientService: ClientService) {
+    public ClientService: ClientService,
+    public orderService: OrderService) {
 
       this.order = this.navParams.get('order');
   }
@@ -48,5 +50,23 @@ export class OrderConfirmationPage {
 
   total() {
     return this.cartService.total();
+  }
+
+  back() {
+    this.navCtrl.setRoot('CartPage');
+  }
+
+  checkOut() {
+    this.orderService.insert(this.order)
+      .subscribe(response => {
+        this.cartService.createOrClearCart();
+        console.log(response.headers.get('location'));
+      },
+      error => {
+        if (error.status == 403) {
+          this.navCtrl.setRoot('HomePage');
+        }
+      });
+      
   }
 }
