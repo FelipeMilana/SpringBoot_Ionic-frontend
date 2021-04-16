@@ -15,6 +15,7 @@ import { ClientService } from '../services/domain/client.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 import { ProductService } from '../services/domain/product.service';
 import { ShoppingCartService } from '../services/domain/shoppingCart.service';
+import { ImageUtilService } from '../services/image-util.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ShoppingCartService } from '../services/domain/shoppingCart.service';
     StorageService,
     ClientService,
     ProductService,
-    ShoppingCartService
+    ShoppingCartService,
+    ImageUtilService
   ]
 })
 export class AppModule {}
