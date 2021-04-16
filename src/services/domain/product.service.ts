@@ -14,7 +14,7 @@ export class ProductService {
         return this.http.get<ProductDTO>(`${API_CONFIG.baseUrl}/products/${id}`);
     }
     
-    findByCategories(categoryId: string) {
-        return this.http.get(`${API_CONFIG.baseUrl}/products/pageSearch?categories=${categoryId}`);
+    findByCategories(categoryId: string, page: number = 0, linesPerPage: number = 24) {
+        return this.http.get(`${API_CONFIG.baseUrl}/products/pageSearch?categories=${categoryId}&page=${page}&linesPerPage=${linesPerPage}`);
     }
 }
