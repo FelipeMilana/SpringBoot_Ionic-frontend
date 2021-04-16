@@ -14,6 +14,12 @@
       <ion-icon name="cart"></ion-icon>
     </button>
   </ion-fab>
+
+  <ion-fab class="padding" *ngIf="hasAdmin" top right>
+    <button color="secondary" navPush="CRIAR" ion-fab mini>
+      <ion-icon name="settings"></ion-icon>
+    </button>
+  </ion-fab>
   
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="showProducts(item.id)">
