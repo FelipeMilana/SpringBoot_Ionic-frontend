@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AddressDTO } from '../../models/address.dto';
 import { ClientDTO } from '../../models/client.dto';
 import { ClientService } from '../../services/domain/client.service';
 import { StorageService } from '../../services/storage.service';
@@ -13,6 +14,10 @@ import { StorageService } from '../../services/storage.service';
 export class ProfilePage {
 
   client: ClientDTO;
+  cpfOrCnpj: string;
+  telephones: string[];
+  profiles: string[];
+  addresses: AddressDTO[];
   picture: string;
   cameraOn: boolean = false;
 
@@ -34,6 +39,10 @@ export class ProfilePage {
       this.clientService.findByEmail(localUser.email)
         .subscribe(response => {
           this.client = response as ClientDTO;
+          this.cpfOrCnpj = response['cpfOrCnpj'];
+          this.telephones = response['telephones'];
+          this.profiles = response['profiles'];
+          this.addresses = response['addresses'];
         },
         error => {
           if(error.status == 403) {
@@ -47,7 +56,6 @@ export class ProfilePage {
   }
 
   getCameraPicture() {
-    
     this.cameraOn = true;
 
     const options: CameraOptions = {
@@ -75,5 +83,13 @@ export class ProfilePage {
 
   cancel() {
     this.picture = null;
+  }
+
+  updateProfileData() {
+    this.navCtrl.push('UpdateProfilePage');
+  }
+
+  addAddress(id: string) {
+    this.navCtrl.push('AddAddressPage', {clientId: id});
   }
 }

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Atualizar perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formGroup" (ngSubmit)="updateUser(); $event.preventDefault()">
+
+    <ion-card>
+      <ion-card-header>
+        <b>Dados do cliente</b>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors"  margin-left>Valor inválido</p>
+  
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input formControlName="email" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors"  margin-left>Valor inválido</p>
+  
+      <ion-item>
+        <ion-label stacked>Senha</ion-label>
+        <ion-input formControlName="password" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" margin-left>Se quiser, digite uma nova senha</p>
+      
+      <ion-item>
+        <ion-label stacked>Telefone 1</ion-label>
+        <ion-input formControlName="telephone1" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Telefone 2</ion-label>
+        <ion-input formControlName="telephone2" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Telefone 3</ion-label>
+        <ion-input formControlName="telephone3" type="text"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Atualizar</button>
+
+  </form>
+</ion-content>

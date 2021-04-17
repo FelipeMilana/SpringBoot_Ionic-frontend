@@ -1,7 +1,9 @@
 import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { API_CONFIG } from "../../configs/api.config";
+import { AddressInsertDTO } from "../../models/address.insert.dto";
 import { ClientInsertDTO } from "../../models/client.insert.dto";
+import { ClientUpdateDTO } from "../../models/client.update.dto";
 import { ImageUtilService } from "../image-util.service";
 import { StorageService } from "../storage.service";
 
@@ -31,6 +33,28 @@ export class ClientService {
                 responseType: 'text'
             }
         );
+    }
+
+    insertAddress(obj: AddressInsertDTO, id: string) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/clients/${id}/addAddress`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        )
+    }
+    
+    update(obj: ClientUpdateDTO, id: string) {
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/clients/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        )
     }
 
     uploadPicture(picture) {
