@@ -36,6 +36,17 @@ export class CategoryService {
         return this.http.delete(`${API_CONFIG.baseUrl}/categories/${id}`);
     }
 
+    insert(obj: CategoryDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/categories`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            } 
+        )
+    }
+
     uploadPicture(picture, id: string) {
         let pictureBlob = this.imgUtilService.dataUriToBlob(picture);
 

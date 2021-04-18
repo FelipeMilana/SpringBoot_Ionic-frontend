@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adicionar categoria</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="formGroup" (ngSubmit)="addCategory(); $event.preventDefault()">
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors"  margin-left>Valor inválido</p>
+    </ion-card>
+
+    <button ion-button color="secondary" block type="submit" [disabled]="formGroup.invalid">Adicionar</button> 
+  </form>
+  
+</ion-content>

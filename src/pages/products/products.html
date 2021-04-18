@@ -19,6 +19,8 @@
     </button>
   </ion-fab>
   
+  <h2 text-center *ngIf="items.length == 0">Não há produtos registrados</h2>
+
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="showDetails(item.id)">
       <ion-thumbnail item-start>
