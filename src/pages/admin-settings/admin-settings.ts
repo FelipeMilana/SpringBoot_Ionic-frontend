@@ -27,4 +27,14 @@ export class AdminSettingsPage {
       );
   }
 
+  showProducts(categoryId: string) {
+    this.navCtrl.push('AdminProductsPage', {id: categoryId});  
+  }
+
+  updateCategory() {
+  }
+
+  deleteCategory() {
+  }
+
 }
