@@ -31,7 +31,8 @@ export class AdminSettingsPage {
     this.navCtrl.push('AdminProductsPage', {id: categoryId});  
   }
 
-  updateCategory() {
+  updateCategory(categoryId: string) {
+    this.navCtrl.push('UpdateCategoryPage', {id: categoryId}); 
   }
 
   deleteCategory() {

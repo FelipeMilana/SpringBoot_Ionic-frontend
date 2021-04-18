@@ -24,7 +24,7 @@
       </ion-thumbnail>
       <h2>{{item.name}}</h2>
       <button ion-button color="danger" block (click)="showProducts(item.id)">Ver produtos</button>
-      <button ion-button color="secondary" block (click)="UpdateCategory()">Atualizar</button>
+      <button ion-button color="secondary" block (click)="updateCategory(item.id)">Atualizar</button>
       <button ion-button block (click)="deleteCategories()">Deletar</button>
     </ion-item>
   </ion-list>
