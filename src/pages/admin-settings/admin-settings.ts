@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryDTO } from '../../models/category.dto';
 import { CategoryService } from '../../services/domain/category.service';
 
@@ -15,10 +15,19 @@ export class AdminSettingsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public categoryService: CategoryService) {
+    public categoryService: CategoryService,
+    public alertCtrl: AlertController) {
+  }
+
+  ionViewWillEnter() {
+    this.loadData();
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData() {
     this.categoryService.findAll()
       .subscribe(response => {
         this.items = response;
@@ -35,7 +44,28 @@ export class AdminSettingsPage {
     this.navCtrl.push('UpdateCategoryPage', {id: categoryId}); 
   }
 
-  deleteCategory() {
+  deleteCategory(categoryId: string) {
+    this.categoryService.delete(categoryId)
+      .subscribe(response => {
+        this.showDeleteOk();
+        this.loadData();
+      },
+      error => {});
+       
+  }
+
+  showDeleteOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Categoria deletada com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

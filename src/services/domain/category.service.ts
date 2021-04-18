@@ -32,6 +32,10 @@ export class CategoryService {
         );
     }
 
+    delete(id: string) {
+        return this.http.delete(`${API_CONFIG.baseUrl}/categories/${id}`);
+    }
+
     uploadPicture(picture, id: string) {
         let pictureBlob = this.imgUtilService.dataUriToBlob(picture);
 

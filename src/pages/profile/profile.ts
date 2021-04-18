@@ -29,6 +29,10 @@ export class ProfilePage {
     public camera: Camera) {
   }
 
+  ionViewWillEnter() {
+    this.loadData();
+  }
+  
   ionViewDidLoad() {
     this.loadData();
   }
