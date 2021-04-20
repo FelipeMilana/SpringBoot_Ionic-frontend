@@ -9,23 +9,21 @@
 
 <ion-content padding>
 
-  <h3>Lista de categorias</h3>
+  <h3 class="padding" text-center>Bem vindo ao modo de administrador</h3>
 
-  <ion-fab top right edge>
-    <button color="secondary" navPush="AddCategoryPage" ion-fab mini>
-      <ion-icon name="add-circle"></ion-icon>
-    </button>
-  </ion-fab>
+  <ion-card >
+    <button text-center ion-item color="secondary" block>Usuários</button>
+  </ion-card>
 
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-thumbnail item-start>
-        <img src="{{item.imgUrl}}">
-      </ion-thumbnail>
-      <h2>{{item.name}}</h2>
-      <button ion-button color="danger" block (click)="showProducts(item.id)">Ver produtos</button>
-      <button ion-button color="secondary" block (click)="updateCategory(item.id)">Atualizar</button>
-      <button ion-button block (click)="deleteCategory(item.id)">Deletar</button>
-    </ion-item>
-  </ion-list>
+  <ion-card >
+    <button text-center ion-item color="secondary" block (click)="loadCategories()">Categorias</button>
+  </ion-card>
+
+  <ion-card >
+    <button text-center ion-item color="secondary" block (click)="loadProducts()">Produtos</button>
+  </ion-card>
+
+  <ion-card >
+    <button text-center ion-item color="secondary" block>Pedidos</button>
+  </ion-card>
 </ion-content>
