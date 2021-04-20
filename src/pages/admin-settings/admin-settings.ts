@@ -23,5 +23,9 @@ export class AdminSettingsPage {
   loadCategories(){
     this.navCtrl.push('CategoriesSettingsPage');
   }
+
+  loadProducts() {
+    this.navCtrl.push('ProductsSettingsPage');
+  }
   
 }
