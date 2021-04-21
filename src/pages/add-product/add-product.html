@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adicionar Produto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="formGroup" (ngSubmit)="addProduct(); $event.preventDefault()">
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors"  margin-left>Valor inválido</p>
+
+      <ion-item>
+        <ion-label stacked>Preço (R$)</ion-label>
+        <ion-input formControlName="price" type="text"></ion-input>
+      </ion-item>
+      <p class="danger" *ngIf="formGroup.controls.price.dirty && formGroup.controls.price.errors"  margin-left>Valor inválido</p>
+    </ion-card>
+
+    <p margin-left>Escolha uma ou mais categorias:</p>
+    <ion-card *ngFor="let cat of categories">
+      <ion-item>
+        <ion-label>{{cat.name}}</ion-label>
+        <ion-checkbox formControlName="category" (ionChange)="selectCategory(cat, $event)"></ion-checkbox>
+      </ion-item>
+    </ion-card>
+    
+    <button ion-button color="secondary" block type="submit" [disabled]="formGroup.invalid">Adicionar</button> 
+  </form>
+  
+</ion-content>

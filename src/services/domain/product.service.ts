@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { API_CONFIG } from "../../configs/api.config";
 import { ProductDTO } from "../../models/product.dto";
+import { ProductInsertDTO } from "../../models/product.insert.dto";
 
 @Injectable()
 export class ProductService {
@@ -24,5 +25,16 @@ export class ProductService {
 
     delete(id: string) {
         return this.http.delete(`${API_CONFIG.baseUrl}/products/${id}`);
+    }
+
+    insert(obj: ProductInsertDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/products`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            } 
+        )
     }
 }

@@ -34,7 +34,9 @@ export class AddCategoryPage {
       .subscribe(response =>{
         this.showInsertOk();
       },
-      error => {});
+      error => {
+        this.navCtrl.setRoot('CategoriesSettingsPage');
+      });
       
   }
 
@@ -47,7 +49,7 @@ export class AddCategoryPage {
         {
           text: 'Ok',
           handler: () => {
-            this.navCtrl.setRoot('AdminSettingsPage');
+            this.navCtrl.setRoot('CategoriesSettingsPage');
           }
         }
       ]
