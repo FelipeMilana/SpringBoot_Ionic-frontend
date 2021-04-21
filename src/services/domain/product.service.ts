@@ -4,11 +4,14 @@ import { Observable } from "rxjs";
 import { API_CONFIG } from "../../configs/api.config";
 import { ProductDTO } from "../../models/product.dto";
 import { ProductInsertDTO } from "../../models/product.insert.dto";
+import { ImageUtilService } from "../image-util.service";
 
 @Injectable()
 export class ProductService {
 
-    constructor(public http: HttpClient) {
+    constructor(
+        public http: HttpClient,
+        public imgUtilService: ImageUtilService) {
     }
 
     findAll() : Observable<ProductDTO[]> {
@@ -36,5 +39,32 @@ export class ProductService {
                 responseType: 'text'
             } 
         )
+    }
+
+    update(obj: ProductDTO, id: string) {
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/products/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
+
+    uploadPicture(picture, id: string) {
+        let pictureBlob = this.imgUtilService.dataUriToBlob(picture);
+
+        let formData: FormData = new FormData();
+        formData.set('file', pictureBlob, 'file.png');
+
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/products/${id}/picture`,
+            formData,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
     }
 }

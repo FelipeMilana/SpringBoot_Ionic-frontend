@@ -37,7 +37,7 @@ export class ProductsSettingsPage {
   }
 
   updateProduct(categoryId: string) {
-    this.navCtrl.push('CRIAR', {id: categoryId}); 
+    this.navCtrl.push('UpdateProductPage', {id: categoryId}); 
   }
 
   askWantDelete(categoryId: string) {
