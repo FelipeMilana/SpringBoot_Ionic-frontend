@@ -30,6 +30,10 @@ export class ProductService {
         return this.http.get(`${API_CONFIG.baseUrl}/products/pageSearch?name=${name}`);
     }
 
+    findByProductsByNameInCategories(categoryId: string, name: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/products/pageSearch?categories=${categoryId}&name=${name}`);
+    }
+
     delete(id: string) {
         return this.http.delete(`${API_CONFIG.baseUrl}/products/${id}`);
     }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductDTO } from '../../models/product.dto';
 import { ProductService } from '../../services/domain/product.service';
@@ -18,7 +18,8 @@ export class ProductsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public productService: ProductService,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -32,6 +33,10 @@ export class ProductsPage {
       .subscribe(response => {
         this.items = this.items.concat(response['content']);
         loader.dismiss();
+
+        if(this.items.length == 0) {
+          this.showFailed();
+        }
       },
       error => {
         loader.dismiss();
@@ -68,10 +73,15 @@ export class ProductsPage {
   }
 
   searchBar(event){
-    this.productService.findByProductName(event.target.value)
+    let categoryId = this.navParams.get('id');
+    this.productService.findByProductsByNameInCategories(categoryId,event.target.value)
       .subscribe(response => {
         this.items = [];
         this.items = response['content'];
+
+        if(this.items.length == 0) {
+          this.showFailedSearchBar();
+        }
       })
   }
 
@@ -79,5 +89,39 @@ export class ProductsPage {
     this.page = 0;
     this.items = [];
     this.loadData();
+  }
+
+  showFailedSearchBar() {
+    let alert = this.alertCtrl.create({
+      title: 'Alerta',
+      message: 'Não há produtos com esse nome',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.cancelSearchBar();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  showFailed() {
+    let alert = this.alertCtrl.create({
+      title: 'Alerta',
+      message: 'Não há produtos registrados',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.setRoot('CategoriesPage');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

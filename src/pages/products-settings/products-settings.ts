@@ -84,11 +84,33 @@ export class ProductsSettingsPage {
       .subscribe(response => {
         this.items = [];
         this.items = response['content'];
-      })
+
+        if(this.items.length == 0) {
+          this.showFailedSearchBar();
+        }
+      },
+      error => {})
   }
 
   cancelSearchBar() {
     this.items = [];
     this.loadData();
+  }
+
+  showFailedSearchBar() {
+    let alert = this.alertCtrl.create({
+      title: 'Alerta',
+      message: 'Não há produtos com esse nome',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.cancelSearchBar();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
