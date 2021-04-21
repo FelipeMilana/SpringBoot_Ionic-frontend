@@ -78,4 +78,17 @@ export class ProductsSettingsPage {
     });
     alert.present();
   }
+
+  searchBar(event){
+    this.productService.findByProductName(event.target.value)
+      .subscribe(response => {
+        this.items = [];
+        this.items = response['content'];
+      })
+  }
+
+  cancelSearchBar() {
+    this.items = [];
+    this.loadData();
+  }
 }

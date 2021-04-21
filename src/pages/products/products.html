@@ -18,6 +18,10 @@
       <ion-icon name="cart"></ion-icon>
     </button>
   </ion-fab>
+
+  <ion-toolbar *ngIf="items.length != 0">
+    <ion-searchbar showCancelButton="true" (search)="searchBar($event)" (ionCancel)="cancelSearchBar()"></ion-searchbar>
+  </ion-toolbar>
   
   <h2 text-center *ngIf="items.length == 0">Não há produtos registrados</h2>
 

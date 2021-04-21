@@ -66,4 +66,18 @@ export class ProductsPage {
       infiniteScroll.complete();
     }, 1000);
   }
+
+  searchBar(event){
+    this.productService.findByProductName(event.target.value)
+      .subscribe(response => {
+        this.items = [];
+        this.items = response['content'];
+      })
+  }
+
+  cancelSearchBar() {
+    this.page = 0;
+    this.items = [];
+    this.loadData();
+  }
 }

@@ -11,11 +11,17 @@
 
   <h3>Lista de produtos</h3>
 
+  <ion-toolbar>
+    <ion-searchbar showCancelButton="true" (search)="searchBar($event)" (ionCancel)="cancelSearchBar()"></ion-searchbar>
+  </ion-toolbar>
+
   <ion-fab top right edge>
     <button color="danger" navPush="AddProductPage" ion-fab mini>
       <ion-icon name="add-circle"></ion-icon>
     </button>
   </ion-fab>
+
+  
 
   <ion-list>
     <ion-item *ngFor="let item of items">
