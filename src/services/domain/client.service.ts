@@ -16,6 +16,10 @@ export class ClientService {
         public imgUtilService: ImageUtilService) {
     }
 
+    findAll() {
+        return this.http.get(`${API_CONFIG.baseUrl}/clients`);
+    }
+
     findById(id: string) {
         return this.http.get(`${API_CONFIG.baseUrl}/clients/${id}`);
     }
@@ -71,5 +75,9 @@ export class ClientService {
                 responseType: 'text'
             }
         );
+    }
+
+    delete(id: string) {
+        return this.http.delete(`${API_CONFIG.baseUrl}/clients/${id}`);
     }
 }

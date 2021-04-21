@@ -27,5 +27,13 @@ export class AdminSettingsPage {
   loadProducts() {
     this.navCtrl.push('ProductsSettingsPage');
   }
+
+  loadUsers() {
+    this.navCtrl.push('UsersSettingsPage');
+  }
+
+  loadOrders() {
+    this.navCtrl.push('CRIAR');
+  }
   
 }

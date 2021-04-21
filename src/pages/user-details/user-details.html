@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Detalhes do usuário</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-avatar>
+    <img class="circle" src="{{client?.imageURL}}">
+  </ion-avatar>
+  <h2 text-center> {{client?.name}}</h2> 
+
+  <ion-card>
+    <ion-card-header>
+      <b>Dados Pessoais</b> 
+    </ion-card-header>
+    <ion-item>
+      <p class="padding">Email: {{client?.email}}</p>
+      <p *ngIf="cpfOrCnpj?.length == 11"class="padding">CPF: {{cpfOrCnpj}}</p>
+      <p *ngIf="cpfOrCnpj?.length == 14" class="padding">CNPJ: {{cpfOrCnpj}}</p>
+      <p>Telefones:</p>
+      <p text-center *ngFor="let telephone of telephones">{{telephone}}</p>
+      <p>Permissões:</p>
+      <p text-center *ngFor="let profile of profiles">{{profile}}</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <b>Meus Endereços</b> 
+    </ion-card-header>
+
+    <ion-item *ngFor="let address of addresses">
+      <h2>{{address?.street}}, {{address?.number}}</h2>
+      <p>{{address?.complement}} {{address?.district}} CEP: {{address?.cep}}</p>
+      <p>{{address?.city.name}}, {{address?.city.state.name}}</p>
+    </ion-item>
+  </ion-card>
+</ion-content>
+

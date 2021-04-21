@@ -12,7 +12,7 @@
   <h3 class="padding" text-center>Bem vindo ao modo de administrador</h3>
 
   <ion-card >
-    <button text-center ion-item color="secondary" block>Usuários</button>
+    <button text-center ion-item color="secondary" block (click)="loadUsers()">Usuários</button>
   </ion-card>
 
   <ion-card >
@@ -24,6 +24,6 @@
   </ion-card>
 
   <ion-card >
-    <button text-center ion-item color="secondary" block>Pedidos</button>
+    <button text-center ion-item color="secondary" block (click)="loadOrders()">Pedidos</button>
   </ion-card>
 </ion-content>
