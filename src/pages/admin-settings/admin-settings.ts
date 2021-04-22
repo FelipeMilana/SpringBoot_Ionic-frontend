@@ -33,7 +33,7 @@ export class AdminSettingsPage {
   }
 
   loadOrders() {
-    this.navCtrl.push('CRIAR');
+    this.navCtrl.push('OrdersSettingsPage');
   }
   
 }
