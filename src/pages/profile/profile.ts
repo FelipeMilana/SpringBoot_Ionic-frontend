@@ -20,6 +20,7 @@ export class ProfilePage {
   addresses: AddressDTO[];
   picture: string;
   cameraOn: boolean = false;
+  cameraRollOn: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -61,6 +62,7 @@ export class ProfilePage {
 
   getCameraPicture() {
     this.cameraOn = true;
+    this.cameraRollOn = true;
 
     const options: CameraOptions = {
       quality: 100,
@@ -72,6 +74,27 @@ export class ProfilePage {
     this.camera.getPicture(options).then((ImageData) => {
       this.picture = 'data:image/png;base64,' + ImageData;
       this.cameraOn = false;
+      this.cameraRollOn = false;
+    },
+    (err) => {});
+  }
+
+  getCameraRoll() {
+    this.cameraRollOn = true;
+    this.cameraOn = true;
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((ImageData) => {
+      this.picture = 'data:image/jpeg;base64,' + ImageData;
+      this.cameraOn = false;
+      this.cameraRollOn = false;
     },
     (err) => {});
   }
