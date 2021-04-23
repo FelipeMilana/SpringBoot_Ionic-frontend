@@ -76,7 +76,10 @@ export class ProfilePage {
       this.cameraOn = false;
       this.cameraRollOn = false;
     },
-    (err) => {});
+    (err) => {
+      this.cameraOn = false;
+      this.cameraRollOn = false
+    });
   }
 
   getCameraRoll() {
@@ -96,7 +99,10 @@ export class ProfilePage {
       this.cameraOn = false;
       this.cameraRollOn = false;
     },
-    (err) => {});
+    (err) => {
+      this.cameraOn = false;
+      this.cameraRollOn = false
+    });
   }
 
   sendPicture() {

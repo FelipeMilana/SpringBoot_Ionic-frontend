@@ -88,7 +88,10 @@ export class UpdateProductPage {
       this.cameraOn = false;
       this.cameraRollOn = false;
     },
-    (err) => {});
+    (err) => {
+      this.cameraOn = false;
+      this.cameraRollOn = false
+    });
   }
 
   getCameraRoll() {
@@ -108,7 +111,10 @@ export class UpdateProductPage {
       this.cameraOn = false;
       this.cameraRollOn = false;
     },
-    (err) => {});
+    (err) => {
+      this.cameraOn = false;
+      this.cameraRollOn = false
+    });
   }
 
   sendPicture() {
