@@ -1,3 +1,3 @@
 export const API_CONFIG = {
-    baseUrl: "http://localhost:8088"
+    baseUrl: "https://spring-postgres-ionic-dropbox.herokuapp.com"
 }

@@ -68,7 +68,8 @@ export class ProfilePage {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
 
     this.camera.getPicture(options).then((ImageData) => {
@@ -89,13 +90,14 @@ export class ProfilePage {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
+      encodingType: this.camera.EncodingType.PNG,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
 
     this.camera.getPicture(options).then((ImageData) => {
-      this.picture = 'data:image/jpeg;base64,' + ImageData;
+      this.picture = 'data:image/png;base64,' + ImageData;
       this.cameraOn = false;
       this.cameraRollOn = false;
     },
