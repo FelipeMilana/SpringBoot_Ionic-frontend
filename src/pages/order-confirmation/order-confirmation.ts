@@ -59,7 +59,7 @@ export class OrderConfirmationPage {
   }
 
   home() {
-    this.navCtrl.setRoot('CategoriesPage');
+    this.navCtrl.setRoot('MyOrdersPage');
   }
 
   checkOut() {

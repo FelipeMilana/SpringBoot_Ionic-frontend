@@ -14,6 +14,10 @@ export class OrderService {
         return this.http.get(`${API_CONFIG.baseUrl}/orders`);
     }
     
+    findByPage(direction: string = "DESC") {
+        return this.http.get(`${API_CONFIG.baseUrl}/orders/page?direction=${direction}`);
+    }
+
     findById(id: string) {
         return this.http.get(`${API_CONFIG.baseUrl}/orders/${id}`);
     }
