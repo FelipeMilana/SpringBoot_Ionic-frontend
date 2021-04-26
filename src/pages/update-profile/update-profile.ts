@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { ClientDTO } from '../../models/client.dto';
 import { ClientService } from '../../services/domain/client.service';
 import { StorageService } from '../../services/storage.service';
@@ -22,7 +22,8 @@ export class UpdateProfilePage {
     public formBuilder: FormBuilder,
     public clientService: ClientService,
     public storage: StorageService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
       this.formGroup = this.formBuilder.group({
         name: [null, [Validators.minLength(5), Validators.maxLength(120)]],
@@ -61,11 +62,16 @@ export class UpdateProfilePage {
   }
 
   updateUser() {
+    let loader = this.presentLoading();
+
     this.clientService.update(this.formGroup.value, this.client.id)
       .subscribe(response => {
+        loader.dismiss();
         this.showUpdateOk();
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   showUpdateOk() {
@@ -83,5 +89,13 @@ export class UpdateProfilePage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

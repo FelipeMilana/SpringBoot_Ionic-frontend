@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CategoryDTO } from '../../models/category.dto';
 import { CategoryService } from '../../services/domain/category.service';
 
@@ -25,7 +25,8 @@ export class UpdateCategoryPage {
     public formBuilder: FormBuilder,
     public categoryService: CategoryService,
     public alertCtrl: AlertController,
-    public camera: Camera) {
+    public camera: Camera,
+    public loadingCtrl: LoadingController) {
 
       this.formGroup = this.formBuilder.group({
         name:['',[Validators.required, Validators.minLength(5), Validators.maxLength(80)]],
@@ -48,11 +49,16 @@ export class UpdateCategoryPage {
   }
 
   updateCategory() {
+    let loader = this.presentLoading();
+
     this.categoryService.update(this.formGroup.value, this.item.id)
       .subscribe(response =>{
+        loader.dismiss();
         this.showUpdateOk();
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
       
   }
 
@@ -121,15 +127,28 @@ export class UpdateCategoryPage {
   }
 
   sendPicture() {
+    let loader = this.presentLoading();
+
     this.categoryService.uploadPicture(this.picture, this.item.id)
       .subscribe(response => {
+        loader.dismiss();
         this.picture = null;
         this.loadData();
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   cancel() {
     this.picture = null;
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

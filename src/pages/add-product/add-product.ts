@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CategoryDTO } from '../../models/category.dto';
 import { ProductInsertDTO } from '../../models/product.insert.dto';
 import { CategoryService } from '../../services/domain/category.service';
@@ -23,7 +23,8 @@ export class AddProductPage {
     public formBuilder: FormBuilder,
     public productService: ProductService,
     public categoryService: CategoryService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
       this.formGroup = this.formBuilder.group({
         name:['',[Validators.required, Validators.minLength(2), Validators.maxLength(120)]],
@@ -58,11 +59,15 @@ export class AddProductPage {
       categoryName: this.resultCheckbox
     }
 
+    let loader = this.presentLoading();
+
     this.productService.insert(newProduct)
       .subscribe(response => {
+        loader.dismiss();
         this.showInsertOk();
       },
       error =>{
+        loader.dismiss();
         this.navCtrl.setRoot('ProductsSettingsPage');
       })
   }
@@ -82,5 +87,13 @@ export class AddProductPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

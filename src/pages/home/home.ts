@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, LoadingController, NavController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { LoginDTO } from '../../models/login.dto';
 import { AuthService } from '../../services/auth.service';
@@ -19,7 +19,8 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public menu: MenuController,
-    public auth: AuthService) {
+    public auth: AuthService,
+    public loadingCtrl: LoadingController) {
 
   }
 
@@ -32,26 +33,44 @@ export class HomePage {
   }
   
   ionViewDidEnter() {
+    let loader = this.presentLoading();
+
     this.auth.refreshToken()
       .subscribe(response => {
+        loader.dismiss();
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriesPage');
       }, 
-      error => {}
+      error => {
+        loader.dismiss();
+      }
       );
   }
 
   login() {
+    let loader = this.presentLoading();
+
     this.auth.authenticate(this.logs)
       .subscribe(response => {
+        loader.dismiss();
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriesPage');
       }, 
-      error => {}
+      error => {
+        loader.dismiss();
+      }
       );
   }
 
   signup() {
     this.navCtrl.push('SignupPage');
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

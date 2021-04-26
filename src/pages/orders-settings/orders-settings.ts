@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { OrderDTO } from '../../models/order.dto';
 import { OrderService } from '../../services/domain/order.service';
 
@@ -16,7 +16,8 @@ export class OrdersSettingsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public orderService: OrderService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -28,15 +29,21 @@ export class OrdersSettingsPage {
   }
 
   loadData() {
+    let loader = this.presentLoading();
+
     this.orderService.findAll()
       .subscribe(response => {
+        loader.dismiss();
+
         this.orders = response as OrderDTO[];
 
         if(this.orders.length == 0) {
           this.showFailed();
         }
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   showFailed() {
@@ -58,5 +65,13 @@ export class OrdersSettingsPage {
 
   showDetails(id: string) {
     this.navCtrl.push('OrderDetailsPage', {orderId: id});
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CategoryDTO } from '../../models/category.dto';
 import { CategoryService } from '../../services/domain/category.service';
 
@@ -19,7 +19,8 @@ export class AddCategoryPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public categoryService: CategoryService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
       this.formGroup = this.formBuilder.group({
         name:['',[Validators.required, Validators.minLength(5), Validators.maxLength(80)]],
@@ -30,11 +31,14 @@ export class AddCategoryPage {
   }
 
   addCategory() {
+    let loader = this.presentLoading();
     this.categoryService.insert(this.formGroup.value)
       .subscribe(response =>{
+        loader.dismiss();
         this.showInsertOk();
       },
       error => {
+        loader.dismiss();
         this.navCtrl.setRoot('CategoriesSettingsPage');
       });
       
@@ -55,5 +59,13 @@ export class AddCategoryPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

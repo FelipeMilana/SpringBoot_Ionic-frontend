@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CategoryDTO } from '../../models/category.dto';
 import { CategoryService } from '../../services/domain/category.service';
 
@@ -16,7 +16,8 @@ export class CategoriesSettingsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public categoryService: CategoryService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -28,11 +29,16 @@ export class CategoriesSettingsPage {
   }
 
   loadData() {
+    let loader = this.presentLoading();
+
     this.categoryService.findAll()
       .subscribe(response => {
         this.items = response;
+        loader.dismiss();
       },
-      (error) => {}
+      (error) => {
+        loader.dismiss();
+      }
       );
   }
 
@@ -49,12 +55,17 @@ export class CategoriesSettingsPage {
         {
           text: 'Ok',
           handler: () => {
+            let loader = this.presentLoading();
+
             this.categoryService.delete(categoryId)
             .subscribe(response => {
+              loader.dismiss();
               this.showDeleteOk();
               this.loadData();
             },
-            error => {});
+            error => {
+              loader.dismiss();
+            });
           }
         },
         {
@@ -77,5 +88,13 @@ export class CategoriesSettingsPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

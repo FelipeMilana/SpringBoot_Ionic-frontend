@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CityDTO } from '../../models/city.dto';
 import { StateDTO } from '../../models/state.dto';
 import { CityService } from '../../services/domain/city.service';
@@ -26,7 +26,8 @@ export class AddAddressPage {
     public clientService: ClientService,
     public stateService: StateService,
     public cityService: CityService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
       this.clientId = this.navParams.get('clientId');
 
@@ -62,11 +63,15 @@ export class AddAddressPage {
   }
 
   insertAddress() {
+    let loader = this.presentLoading();
     this.clientService.insertAddress(this.formGroup.value, this.clientId)
       .subscribe(response => {
+        loader.dismiss();
         this.showInsertOk();
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   showInsertOk() {
@@ -84,5 +89,13 @@ export class AddAddressPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

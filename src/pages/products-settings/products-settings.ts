@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { ProductDTO } from '../../models/product.dto';
 import { ProductService } from '../../services/domain/product.service';
 
@@ -16,7 +16,8 @@ export class ProductsSettingsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public productService: ProductService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -28,11 +29,16 @@ export class ProductsSettingsPage {
   }
 
   loadData() {
+    let loader = this.presentLoading();
+
     this.productService.findAll()
       .subscribe(response => {
         this.items = response;
+        loader.dismiss();
       },
-      (error) => {}
+      (error) => {
+        loader.dismiss();
+      }
       );
   }
 
@@ -49,12 +55,17 @@ export class ProductsSettingsPage {
         {
           text: 'Ok',
           handler: () => {
+            let loader = this.presentLoading();
+
             this.productService.delete(categoryId)
             .subscribe(response => {
+              loader.dismiss();
               this.showDeleteOk();
               this.loadData();
             },
-            error => {});
+            error => {
+              loader.dismiss();
+            });
           }
         },
         {
@@ -112,5 +123,13 @@ export class ProductsSettingsPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

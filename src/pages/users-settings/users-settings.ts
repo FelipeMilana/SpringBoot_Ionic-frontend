@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { Client } from '../../models/client';
 import { ClientService } from '../../services/domain/client.service';
 
@@ -16,7 +16,8 @@ export class UsersSettingsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public clientService: ClientService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -28,15 +29,20 @@ export class UsersSettingsPage {
   }
 
   loadData() {
+    let loader = this.presentLoading();
+
     this.clientService.findAll()
       .subscribe(response => {
+        loader.dismiss();
         this.clients = response as Client[];
 
         if(this.clients.length == 0) {
           this.showFailed();
         }
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   showFailed() {
@@ -69,12 +75,17 @@ export class UsersSettingsPage {
         {
           text: 'Ok',
           handler: () => {
+            let loader = this.presentLoading();
+
             this.clientService.delete(clientId)
             .subscribe(response => {
+              loader.dismiss();
               this.showDeleteOk();
               this.loadData();
             },
-            error => {});
+            error => {
+              loader.dismiss();
+            });
           }
         },
         {
@@ -97,5 +108,13 @@ export class UsersSettingsPage {
       ]
     });
     alert.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }

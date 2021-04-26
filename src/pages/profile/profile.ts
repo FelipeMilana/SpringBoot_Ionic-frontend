@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { AddressDTO } from '../../models/address.dto';
 import { ClientDTO } from '../../models/client.dto';
 import { ClientService } from '../../services/domain/client.service';
@@ -27,7 +27,8 @@ export class ProfilePage {
     public navParams: NavParams,
     public storage: StorageService,
     public clientService: ClientService,
-    public camera: Camera) {
+    public camera: Camera,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -108,12 +109,17 @@ export class ProfilePage {
   }
 
   sendPicture() {
+    let loader = this.presentLoading();
+
     this.clientService.uploadPicture(this.picture)
       .subscribe(response => {
+        loader.dismiss();
         this.picture = null;
         this.loadData();
       },
-      error => {});
+      error => {
+        loader.dismiss();
+      });
   }
 
   cancel() {
@@ -126,5 +132,13 @@ export class ProfilePage {
 
   addAddress(id: string) {
     this.navCtrl.push('AddAddressPage', {clientId: id});
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde...",
+    });
+    loader.present();
+    return loader;
   }
 }
