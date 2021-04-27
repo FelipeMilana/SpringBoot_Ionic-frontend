@@ -16,6 +16,7 @@ export class MyOrdersPage {
   client: ClientDTO;
   orders: OrderDTO[] = [];
   clientOrders: OrderDTO[] = [];
+  page: number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -40,7 +41,7 @@ export class MyOrdersPage {
         .subscribe(response => {
           this.client = response as ClientDTO;
           
-          this.orderService.findByPage("ASC")
+          this.orderService.findByPage(this.page, 10, "ASC")
             .subscribe(response => {
               loader.dismiss();
               this.orders = response['content'] as OrderDTO[];
@@ -83,6 +84,14 @@ export class MyOrdersPage {
     });
     loader.present();
     return loader;
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 1000);
   }
 
   showFailed() {

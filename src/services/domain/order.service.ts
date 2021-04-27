@@ -14,8 +14,8 @@ export class OrderService {
         return this.http.get(`${API_CONFIG.baseUrl}/orders`);
     }
     
-    findByPage(direction: string = "DESC") {
-        return this.http.get(`${API_CONFIG.baseUrl}/orders/page?direction=${direction}`);
+    findByPage(page: number = 0, linesPerPage: number = 24, direction: string = "DESC") {
+        return this.http.get(`${API_CONFIG.baseUrl}/orders/page?page=${page}&linesPerPage=${linesPerPage}&direction=${direction}`);
     }
 
     findById(id: string) {
