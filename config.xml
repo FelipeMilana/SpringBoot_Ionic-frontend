@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.javaudemy.springbootIonicDropbox" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sistema de pedidos</name>
-    <description>Aplicativo utilizando Spring Boot, PostegresSQL, Ionic e Dropbox</description>
+    <description>Aplicativo utilizando Spring Boot, PostgresSQL, Ionic e Dropbox</description>
     <author email="games.clorin@gmail.com" href="">Felipe Milana</author>
     <content src="index.html" />
     <access origin="*" />
