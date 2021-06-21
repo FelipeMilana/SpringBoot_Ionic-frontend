@@ -22,7 +22,7 @@ perfil de administrador, é possivel realizar outras tarefas, como adicionar e a
 </p>
 
 ## Modelo Conceitual
-![MODELO 1](https://github.com/FelipeMilana/Assets/blob/main/salesdashboard%234.png)
+![MODELO 1](https://github.com/FelipeMilana/Assets/blob/main/springboot_ionic%231.png)
 
 ## Padrão de camadas 
 ![PADRAO 1](https://github.com/FelipeMilana/Assets/blob/main/padrao_camadas.png)
