@@ -1,9 +1,9 @@
-# SpringBoot Ionic - Front-end
+# SpringBoot Ionic - Front end
 [![NPM](https://img.shields.io/npm/l/ionic)](https://github.com/FelipeMilana/SpringBoot_Ionic-frontend/blob/master/LICENSE)
 
 # Sobre o projeto
 
-Aplicação full stack de um sistema de pedidos, no qual o usuário pode simular uma compra e receber uma confirmação do seu pedido no email cadastrado. Para usuários com 
+Aplicação full stack mobile de um sistema de pedidos, no qual o usuário pode simular uma compra e receber uma confirmação do seu pedido no email cadastrado. Para usuários com 
 perfil de administrador, é possivel realizar outras tarefas, como adicionar e atualizar produtos e categorias, além de ver todos os pedidos e usuários cadastrados no aplicativo.
 
 
