@@ -3,7 +3,7 @@
 
 # Sobre o projeto
 
-Aplicação full stack mobile de um sistema de pedidos, no qual o usuário pode simular uma compra e receber uma confirmação do seu pedido no email cadastrado. Para usuários com 
+Aplicação Full Stack mobile de um sistema de pedidos, no qual o usuário pode simular uma compra e receber uma confirmação do seu pedido no email cadastrado. Para usuários com 
 perfil de administrador, é possivel realizar outras tarefas, como adicionar e atualizar produtos e categorias, além de ver todos os pedidos e usuários cadastrados no aplicativo.
 
 
@@ -27,9 +27,7 @@ perfil de administrador, é possivel realizar outras tarefas, como adicionar e a
 ## Padrão de camadas 
 ![PADRAO 1](https://github.com/FelipeMilana/Assets/blob/main/padrao_camadas.png)
 
-# Tecnologias Utilizadas
-
-## Front end
+## Tecnologias Utilizadas
 - NodeJS 
 - NPM
 - Ionic 3
@@ -38,13 +36,27 @@ perfil de administrador, é possivel realizar outras tarefas, como adicionar e a
 - Camera plugin
 
 ## Implantação via apk 
+
+Pré-Requisitos:
 - Java 8
 - Android SDK
 - Gradle
 - plataforma Android
 
+## Como executar o projeto
+Pré-Requisito:
+- Ionic CLI
+
+```bash
+# Clonar repositório
+git clone: https://github.com/FelipeMilana/SpringBoot_Ionic-frontend.git
+
+# Abrir um terminal git bash na pasta do projeto e utilizar o seguinte comando
+ionic serve
+```
+
 # Autor
 
 Felipe Milana
 
-https://www.linkedin.com/in/felipemilana
+[![NPM](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/felipemilana) 
